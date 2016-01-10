@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+
+<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+
+
+</head>
+
+
+<body>
+
+
+<!-- GOOGLE PLUS SIGN IN BUTTON-->
+
+
+          <div id="signInButton">
+          <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="467492489793-kjpsm401m5jausrm9gg4n526r291pe7f.apps.googleusercontent.com"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+          </span>
+        </div>
+
+
+<div id="result"></div>
+<script>
+  function signInCallback(authcode){
+    if (authcode['code'])
+    {
+      $('#signInButton').attr('style', 'display: none');
+      $.ajax({
+        type:'POST',
+        url: '/gconnect?state={{STATE}}',
+        processData: false,
+        contentType: 'application/octet-stream;charset=utf-8',
+        data: authcode['code'],
+        success: function(result) {
+          if (result)
+          {
+            $('#result').html('Login Successful!<br>'+ result + '<br>Redirecting ... ');
+            setTimeout(function() {
+              window.location.href="/student/";
+            }, 4000);
+          }
+          else if (authcode['error'])
+          {
+            console.log('There was an error: '+ authcode['error'])
+          }
+          else
+          {
+            $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+          }
+        }
+      });
+    }
+  }
+</script>
+
+<!--END GOOGLE PLUS SIGN IN BUTTON -->
+
+  </body>
+
+  </html>

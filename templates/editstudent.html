@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+  <form action="{{ url_for('editStudent', student_id = student_id) }}" method = "post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type ="text" maxlength="50" class="form-control" name="name" value="{{student.name}}">
+    </div>
+    <div class="form-group">
+      <label for="author">Email:</label>
+      <input type ="text" maxlength="50" class="form-control" name="email" value="{{student.email}}">
+    </div>
+    <div class="form-group">
+      <label for="subject">Cell phone:</label>
+      <input type ="text" maxlength="50" class="form-control" name="cellphone" value="{{student.cellphone}}">
+    </div>
+    <button type="submit" class="btn btn-default" id="submit" type="submit">Submit</button>
+  </form>
+  <a href="{{ url_for('showStudents') }}">Cancel</a>
+
+{% endblock %}

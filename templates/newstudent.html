@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+  <form action=" {{url_for('newStudent')}} " method = "post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type ="text" maxlength="50" class="form-control" name="name" placeholder="Name of the student">
+    </div>
+    <div class="form-group">
+      <label for="name">Email:</label>
+      <input type ="text" maxlength="50" class="form-control" name="email" placeholder="janedoe@gmail.com">
+    </div>
+    <div class="form-group">
+      <label for="name">Cell phone:</label>
+      <input type ="text" maxlength="50" class="form-control" name="cellphone" placeholder="(555)555-5555">
+    </div>
+    <button type="submit" class="btn btn-default" id="submit" type="submit">Submit</button>
+  </form>
+{% endblock %}

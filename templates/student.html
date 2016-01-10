@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+  {{student.name}}
+  <br>
+  {{student.email}}
+  <br>
+  {{student.cellphone}}
+  <br>
+{% for item in checkouts %}
+  {{ item.book_id }}
+  {{ item.checkout_date }}
+  {{ item.due_date}}
+  <br>
+{%endfor%}
+<a href = {{ url_for('checkout', student_id = student_id) }}> Checkout a Book </a>
+{% endblock %}

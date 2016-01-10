@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+  <h2> Books Currently Checked out:</h2>
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>Book Id</th>
+      <th>Student Id</th>
+      <th>Checkout Date</th>
+      <th>Due Date</th>
+      <th></th>
+    </tr>
+    {% for i in checkouts %}
+      <tr>
+        <td>
+          {{ i.book_id }}
+        </td>
+        <td>
+          {{ i.student_id }}
+        </td>
+        <td>
+          {{ i.checkout_date }}
+        </td>
+        <td>
+          {{ i.due_date }}
+        </td>
+        <td>
+          <form action = "{{ url_for('returnBook', book_id = i.book_id)}}" method = "POST">
+            <button id="submit" class="btn btn-xs">
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+              Got the book
+            </button>
+          </form>
+        </td>
+      </tr>
+  {% endfor %}
+{% endblock %}

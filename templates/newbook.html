@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+  <h2>Add a new book</h2>
+  <form action="{{ url_for('newBook') }}" method = "post">
+    <div class="form-group">
+      <label for="name">Title:</label>
+      <input type ="text" maxlength="50" class="form-control" name="name" placeholder="Title of the book">
+    </div>
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input type ="text" maxlength="50" class="form-control" name="author" placeholder="Author of the book">
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject:</label>
+      <input type ="text" maxlength="50" class="form-control" name="subject" placeholder="Culture/ Language">
+    </div>
+    <button type="submit" class="btn btn-primary" id="submit" name="submit" type="submit">
+      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+      Add Book
+    </button>
+    <a href="{{ url_for('showBooks') }}">
+      <button type="button" class="btn btn-primary delete">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        Cancel
+      </button>
+    </a>
+  </form>
+{% endblock %}

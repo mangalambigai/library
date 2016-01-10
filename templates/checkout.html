@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<h2>Checkout books</h2>
+<strong>Student Name: </strong>
+{{student.name}}
+<strong>Email:</strong>
+{{student.email}}
+<strong>Cell phone:</strong>
+{{student.cellphone}}
+
+<table class="table table-hover table-condensed">
+  <tr>
+    <th>Book Title</th>
+    <th>Author Name</th>
+    <th>Subject</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  {% for book in books %}
+    <tr>
+    <td>{{book.name}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.subject}}</td>
+    <td>
+    <form action = "{{url_for('checkoutBook', book_id = book.id, student_id = student_id)}}"
+      method = "POST">
+      <button id="submit" class="btn btn-xs">
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+        Checkout
+      </button>
+    </form>
+    </td>
+  {% endfor %}
+{% endblock %}

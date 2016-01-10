@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+  <form action="{{ url_for('editBook', book_id = book_id) }}" method = "post">
+    <div class="form-group">
+      <label for="name">Title:</label>
+      <input type ="text" maxlength="50" class="form-control" name="name" value="{{book.name}}">
+    </div>
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input type ="text" maxlength="50" class="form-control" name="author" value="{{book.author}}">
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject:</label>
+      <input type ="text" maxlength="50" class="form-control" name="subject" value="{{book.subject}}">
+    </div>
+    <button type="submit" class="btn btn-default" id="submit" type="submit">Submit</button>
+  </form>
+  <a href="{{ url_for('showBooks') }}">Cancel</a>
+
+{% endblock %}
