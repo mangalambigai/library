@@ -158,7 +158,11 @@ def showBooks():
 @app.route('/book/new/', methods=['GET', 'POST'])
 def newBook():
     if request.method == 'POST':
-        newBook = Book(name=request.form['name'], author = request.form['author'], subject = request.form['subject'])
+        newBook = Book(
+            sb_id = request.form['sbid'],
+            name = request.form['name'],
+            author = request.form['author'],
+            subject = request.form['subject'])
         session.add(newBook)
         session.commit()
         flash('Book "%s" added' % newBook.name)
@@ -174,6 +178,7 @@ def showBook(book_id):
 def editBook(book_id):
     book = session.query(Book).filter_by(id=book_id).one()
     if request.method == 'POST':
+        book.sb_id = request.form['sbid']
         book.name = request.form['name']
         book.author = request.form['author']
         book.subject = request.form['subject']
@@ -204,7 +209,11 @@ def showStudents():
 @app.route('/student/new/', methods=['POST', 'GET'])
 def newStudent():
     if request.method == 'POST':
-        newStudent = Student(name=request.form['name'], email = request.form['email'], cellphone = request.form['cellphone'])
+        newStudent = Student (
+            sb_id = request.form['sbid'],
+            name=request.form['name'],
+            email = request.form['email'],
+            cellphone = request.form['cellphone'])
         session.add(newStudent)
         session.commit()
         flash('Student "%s" added' % newStudent.name)
@@ -222,6 +231,7 @@ def newStudent():
 def editStudent(student_id):
     student = session.query(Student).filter_by(id=student_id).one()
     if request.method == 'POST':
+        student.sb_id = request.form['sbid']
         student.name = request.form['name']
         student.email = request.form['email']
         student.cellphone = request.form['cellphone']

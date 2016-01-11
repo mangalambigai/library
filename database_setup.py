@@ -12,12 +12,14 @@ class Book(Base):
     name = Column(String(250), nullable = False)
     author = Column(String(250), nullable = False)
     subject = Column(String(20), nullable = False)
+    sb_id = Column(String(20), nullable = False)
     @property
     def serialize(self):
        """Return object data in easily serializeable format"""
        return {
            'name' : self.name,
            'id' : self.id,
+           'sb_id': self.sb_id,
            'author' : self.author,
            'subject' : self.subject,
        }
@@ -29,6 +31,7 @@ class Student(Base):
     name = Column(String(40), nullable = False)
     email = Column(String(50), nullable = True)
     cellphone = Column(String(10), nullable = True)
+    sb_id = Column(Integer, nullable = False)
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
@@ -37,6 +40,7 @@ class Student(Base):
             'name' : self.name,
             'email' : self.email,
             'cellphone' : self.cellphone,
+            'sb_id': self.sb_id,
         }
 
 class Checkout(Base):

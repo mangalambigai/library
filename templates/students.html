@@ -22,6 +22,7 @@
   </a>
   <table class="table table-hover table-condensed">
   <tr>
+    <th>Student ID</th>
     <th>Student Name</th>
     <th>Email Id</th>
     <th>Cell Number</th>
@@ -31,15 +32,10 @@
   </tr>
   {% for i in students %}
     <tr>
-      <td>
-        {{i.name}}
-      </td>
-      <td>
-        {{i.email}}
-      </td>
-      <td>
-        {{i.cellphone}}
-      </td>
+      <td>{{i.sb_id}}</td>
+      <td>{{i.name}}</td>
+      <td>{{i.email}}</td>
+      <td>{{i.cellphone}}</td>
       <td>
         <a href="{{ url_for('checkout', student_id = i.id) }}">
           <button class="btn btn-xs">

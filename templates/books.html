@@ -24,6 +24,7 @@
 
   <table class="table table-hover table-condensed">
   <tr>
+    <th>Book Id</th>
     <th>Book Title</th>
     <th>Author Name</th>
     <th>Subject</th>
@@ -32,6 +33,7 @@
   </tr>
   {% for i in books %}
     <tr>
+      <td>{{i.sb_id}}</td>
       <td>{{i.name}}</td>
       <td>{{i.author}}</td>
       <td>{{i.subject}}</td>
