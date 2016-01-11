@@ -1,6 +1,17 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+<div class = 'flash'>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</div>
   <h2> Books Currently Checked out:</h2>
   <table class="table table-condensed table-hover">
     <tr>

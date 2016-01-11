@@ -161,6 +161,7 @@ def newBook():
         newBook = Book(name=request.form['name'], author = request.form['author'], subject = request.form['subject'])
         session.add(newBook)
         session.commit()
+        flash('Book "%s" added' % newBook.name)
         return redirect(url_for('showBooks'))
     else:
         return render_template('newbook.html', username = login_session['username'])
@@ -178,6 +179,7 @@ def editBook(book_id):
         book.subject = request.form['subject']
         session.add(book)
         session.commit()
+        flash('Book "%s" updated' % book.name)
         return redirect(url_for('showBooks'))
     else:
         return render_template('editbook.html', book_id = book_id, book=book, username = login_session['username'])
@@ -188,6 +190,7 @@ def deleteBook(book_id):
     if request.method == 'POST':
         session.delete(book)
         session.commit()
+        flash('Book "%s" deleted' % book.name)
         return redirect(url_for('showBooks'))
     else:
         return render_template('deleteBook.html', book_id = book_id, book=book, username = login_session['username'])
@@ -204,6 +207,7 @@ def newStudent():
         newStudent = Student(name=request.form['name'], email = request.form['email'], cellphone = request.form['cellphone'])
         session.add(newStudent)
         session.commit()
+        flash('Student "%s" added' % newStudent.name)
         return redirect(url_for('showStudents'))
     else:
         return render_template('newstudent.html', username = login_session['username'])
@@ -223,6 +227,7 @@ def editStudent(student_id):
         student.cellphone = request.form['cellphone']
         session.add(student)
         session.commit()
+        flash('Student "%s" updated' % student.name)
         return redirect(url_for('showStudents'))
     else:
         return render_template('editstudent.html', student_id = student_id, student=student, username = login_session['username'])
@@ -233,6 +238,7 @@ def deleteStudent(student_id):
     if request.method == 'POST':
         session.delete(student)
         session.commit()
+        flash('Student "%s" deleted' % student.name)
         return redirect(url_for('showStudents'))
     else:
         return render_template('deletestudent.html', student_id = student_id, student=student, username = login_session['username'])
@@ -263,6 +269,8 @@ def checkoutBook(student_id, book_id):
         due_date = due_date)
     session.add(newCheckout)
     session.commit()
+    flash('One book successfully checked out!')
+
     return redirect(url_for('checkout', student_id = student_id))
 
 @app.route('/returnbook/<int:book_id>', methods=['POST'])
@@ -270,6 +278,7 @@ def returnBook(book_id):
     checkout = session.query(Checkout).filter_by(book_id = book_id).one()
     session.delete(checkout)
     session.commit()
+    flash('One book successfully returned!')
     return redirect(url_for('showCheckouts'))
 
 #TODO: renew
