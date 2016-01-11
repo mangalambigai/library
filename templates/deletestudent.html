@@ -2,11 +2,15 @@
 {% block content %}
 {% include "header.html" %}
   <form action="{{ url_for('deleteStudent', student_id = student_id) }}" method="POST">
-    <h2>Are you sure you want to delete {{student.name}}?</h2>
-    <button type="submit" id="submit">
+    <h2>Are you sure you want to delete student '{{student.name}}'?</h2>
+    <button type="submit" id="submit" class="btn btn-primary">
       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
       Delete
     </button>
-  </form>
-  <a href="{{ url_for('showStudents') }}">Cancel</a>
+    <a href="{{ url_for('showStudents') }}">
+      <button class="btn btn-primary" type="button">
+        Cancel
+      </button>
+    </a>
+    </form>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+  <h2>Add a new student</h2>
   <form action=" {{url_for('newStudent')}} " method = "post">
     <div class="form-group">
       <label for="name">Name:</label>
@@ -14,6 +15,16 @@
       <label for="name">Cell phone:</label>
       <input type ="text" maxlength="50" class="form-control" name="cellphone" placeholder="(555)555-5555">
     </div>
-    <button type="submit" class="btn btn-default" id="submit" type="submit">Submit</button>
+    <button type="submit" class="btn btn-primary" id="submit" type="submit">
+      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+      Submit
+    </button>
+    <a href="{{ url_for('showStudents') }}">
+      <button type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        Cancel
+      </button>
+    </a>
+
   </form>
 {% endblock %}

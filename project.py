@@ -208,11 +208,11 @@ def newStudent():
     else:
         return render_template('newstudent.html', username = login_session['username'])
 
-@app.route('/student/<int:student_id>/')
-def showStudent(student_id):
-    student = session.query(Student).filter_by(id= student_id).one()
-    checkouts = session.query(Checkout).filter_by(student_id = student_id).all()
-    return render_template('student.html', student_id = student_id, student=student, checkouts = checkouts, username = login_session['username'])
+#@app.route('/student/<int:student_id>/')
+#def showStudent(student_id):
+#    student = session.query(Student).filter_by(id= student_id).one()
+#    checkouts = session.query(Checkout).filter_by(student_id = student_id).all()
+#    return render_template('student.html', student_id = student_id, student=student, checkouts = checkouts, username = login_session['username'])
 
 @app.route('/student/<int:student_id>/edit/', methods=['POST', 'GET'])
 def editStudent(student_id):
