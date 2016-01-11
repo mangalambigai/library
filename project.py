@@ -246,9 +246,8 @@ def showCheckouts():
 @app.route('/checkout/<int:student_id>/')
 def checkout(student_id):
     student = session.query(Student).filter_by(id = student_id).one()
-#TODO: list only not checked out books
-
-    books = session.query(Book).all()
+    #list only not checked out books
+    books = session.query(Book).filter(~Book.id.in_(session.query(Checkout.book_id)))
     checkouts = session.query(Book, Checkout).join(Checkout).filter_by(student_id = student_id).all()
 
     return render_template('checkout.html', checkouts = checkouts, student_id = student_id, student = student, books = books, username = login_session['username'])
