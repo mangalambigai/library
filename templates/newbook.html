@@ -17,7 +17,15 @@
     </div>
     <div class="form-group">
       <label for="subject">Subject:</label>
-      <input type ="text" maxlength="50" class="form-control" name="subject" placeholder="Culture/ Language">
+      <input name="subject" class="form-control" list="subjects">
+      <datalist id="subjects">
+        <option value="Culture">Culture</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Bengali">Bengali</option>
+      </datalist>
     </div>
     <button type="submit" class="btn btn-primary" id="submit" name="submit" type="submit">
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
