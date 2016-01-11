@@ -153,7 +153,7 @@ session = DBSession()
 @app.route('/book/')
 def showBooks():
     books = session.query(Book).order_by(asc(Book.name))
-    return render_template('books.html', books=books)
+    return render_template('books.html', books=books, username = login_session['username'])
 
 @app.route('/book/new/', methods=['GET', 'POST'])
 def newBook():
@@ -163,7 +163,7 @@ def newBook():
         session.commit()
         return redirect(url_for('showBooks'))
     else:
-        return render_template('newbook.html')
+        return render_template('newbook.html', username = login_session['username'])
 
 @app.route('/book/<int:book_id>/')
 def showBook(book_id):
@@ -180,7 +180,7 @@ def editBook(book_id):
         session.commit()
         return redirect(url_for('showBooks'))
     else:
-        return render_template('editbook.html', book_id = book_id, book=book)
+        return render_template('editbook.html', book_id = book_id, book=book, username = login_session['username'])
 
 @app.route('/book/<int:book_id>/delete/', methods=['GET', 'POST'])
 def deleteBook(book_id):
@@ -190,13 +190,13 @@ def deleteBook(book_id):
         session.commit()
         return redirect(url_for('showBooks'))
     else:
-        return render_template('deleteBook.html', book_id = book_id, book=book)
+        return render_template('deleteBook.html', book_id = book_id, book=book, username = login_session['username'])
 
 #CRUD for students
 @app.route('/student/')
 def showStudents():
     students = session.query(Student).order_by(asc(Student.name))
-    return render_template('students.html', students=students)
+    return render_template('students.html', students=students, username = login_session['username'])
 
 @app.route('/student/new/', methods=['POST', 'GET'])
 def newStudent():
@@ -206,13 +206,13 @@ def newStudent():
         session.commit()
         return redirect(url_for('showStudents'))
     else:
-        return render_template('newstudent.html')
+        return render_template('newstudent.html', username = login_session['username'])
 
 @app.route('/student/<int:student_id>/')
 def showStudent(student_id):
     student = session.query(Student).filter_by(id= student_id).one()
     checkouts = session.query(Checkout).filter_by(student_id = student_id).all()
-    return render_template('student.html', student_id = student_id, student=student, checkouts = checkouts)
+    return render_template('student.html', student_id = student_id, student=student, checkouts = checkouts, username = login_session['username'])
 
 @app.route('/student/<int:student_id>/edit/', methods=['POST', 'GET'])
 def editStudent(student_id):
@@ -225,7 +225,7 @@ def editStudent(student_id):
         session.commit()
         return redirect(url_for('showStudents'))
     else:
-        return render_template('editstudent.html', student_id = student_id, student=student)
+        return render_template('editstudent.html', student_id = student_id, student=student, username = login_session['username'])
 
 @app.route('/student/<int:student_id>/delete/', methods=['POST', 'GET'])
 def deleteStudent(student_id):
@@ -235,19 +235,23 @@ def deleteStudent(student_id):
         session.commit()
         return redirect(url_for('showStudents'))
     else:
-        return render_template('deletestudent.html', student_id = student_id, student=student)
+        return render_template('deletestudent.html', student_id = student_id, student=student, username = login_session['username'])
 
 #Checkouts
 @app.route('/checkout/list/')
 def showCheckouts():
-    checkouts = session.query(Checkout).all()
-    return render_template('viewcheckouts.html', checkouts = checkouts)
+    checkouts = session.query(Checkout, Student, Book).join(Book).join(Student).all()
+    return render_template('viewcheckouts.html', checkouts = checkouts, username = login_session['username'])
 
 @app.route('/checkout/<int:student_id>/')
 def checkout(student_id):
     student = session.query(Student).filter_by(id = student_id).one()
+#TODO: list only not checked out books
+
     books = session.query(Book).all()
-    return render_template('checkout.html', student_id = student_id, student = student, books = books)
+    checkouts = session.query(Book, Checkout).join(Checkout).filter_by(student_id = student_id).all()
+
+    return render_template('checkout.html', checkouts = checkouts, student_id = student_id, student = student, books = books, username = login_session['username'])
 
 @app.route('/checkout/<int:student_id>/<int:book_id>', methods=['POST'])
 def checkoutBook(student_id, book_id):
@@ -260,7 +264,7 @@ def checkoutBook(student_id, book_id):
         due_date = due_date)
     session.add(newCheckout)
     session.commit()
-    return redirect(url_for('showStudent', student_id = student_id))
+    return redirect(url_for('checkout', student_id = student_id))
 
 @app.route('/returnbook/<int:book_id>', methods=['POST'])
 def returnBook(book_id):

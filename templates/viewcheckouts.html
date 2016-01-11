@@ -4,8 +4,8 @@
   <h2> Books Currently Checked out:</h2>
   <table class="table table-condensed table-hover">
     <tr>
-      <th>Book Id</th>
-      <th>Student Id</th>
+      <th>Book Title</th>
+      <th>Student</th>
       <th>Checkout Date</th>
       <th>Due Date</th>
       <th></th>
@@ -13,19 +13,19 @@
     {% for i in checkouts %}
       <tr>
         <td>
-          {{ i.book_id }}
+          {{ i.Book.name }}
         </td>
         <td>
-          {{ i.student_id }}
+          {{ i.Student.name }}
         </td>
         <td>
-          {{ i.checkout_date }}
+          {{ i.Checkout.checkout_date }}
         </td>
         <td>
-          {{ i.due_date }}
+          {{ i.Checkout.due_date }}
         </td>
         <td>
-          <form action = "{{ url_for('returnBook', book_id = i.book_id)}}" method = "POST">
+          <form action = "{{ url_for('returnBook', book_id = i.Book.id)}}" method = "POST">
             <button id="submit" class="btn btn-xs">
               <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
               Got the book

@@ -9,6 +9,27 @@
 <strong>Cell phone:</strong>
 {{student.cellphone}}
 
+<h4>Currently Checkedout Books</h4>
+<table class="table table-hover table-condensed">
+  <tr>
+    <th>Book Title</th>
+    <th>Author Name</th>
+    <th>Subject</th>
+    <th>Checkout Date</th>
+    <th>Due Date</th>
+  </tr>
+  {% for checkout in checkouts %}
+    <tr>
+    <td>{{checkout.Book.name}}</td>
+    <td>{{checkout.Book.author}}</td>
+    <td>{{checkout.Book.subject}}</td>
+    <td>{{checkout.Checkout.checkout_date}}</td>
+    <td>{{checkout.Checkout.due_date}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<h4>Select a book to checkout:</h4>
 <table class="table table-hover table-condensed">
   <tr>
     <th>Book Title</th>
@@ -17,7 +38,6 @@
     <th></th>
     <th></th>
   </tr>
-
   {% for book in books %}
     <tr>
     <td>{{book.name}}</td>
